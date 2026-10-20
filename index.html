@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đèn Kéo Quân 3D</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: white;
+            background: radial-gradient(circle at center,
+                #243b55 0%, #141e30 55%, #080c16 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #ffd166;
+            text-align: center;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px #ff9800;
+        }
+
+        .description {
+            text-align: center;
+            color: #dbeafe;
+            margin-bottom: 45px;
+            line-height: 1.8;
+        }
+
+        /* Không gian 3D */
+        .scene {
+            width: 240px;
+            height: 320px;
+            perspective: 1000px;
+        }
+
+        /* Phần đèn kéo quân */
+        .lantern {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: quayDen 12s linear infinite;
+        }
+
+        /* Sáu mặt của đèn */
+        .face {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 240px;
+            height: 320px;
+            overflow: hidden;
+            border: 3px solid #ffd166;
+            border-radius: 12px;
+            background: #18243a;
+            backface-visibility: hidden;
+            box-shadow: 0 0 20px rgba(255, 190, 60, 0.4);
+            cursor: pointer;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .face img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .face:hover {
+            border-color: #fff3a3;
+            box-shadow: 0 0 35px #ffca55;
+        }
+
+        .face:hover img {
+            transform: scale(1.06);
+        }
+
+        /* Xếp sáu mặt thành hình lục giác */
+        .face:nth-child(1) {
+            transform: rotateY(0deg) translateZ(208px);
+        }
+
+        .face:nth-child(2) {
+            transform: rotateY(60deg) translateZ(208px);
+        }
+
+        .face:nth-child(3) {
+            transform: rotateY(120deg) translateZ(208px);
+        }
+
+        .face:nth-child(4) {
+            transform: rotateY(180deg) translateZ(208px);
+        }
+
+        .face:nth-child(5) {
+            transform: rotateY(240deg) translateZ(208px);
+        }
+
+        .face:nth-child(6) {
+            transform: rotateY(300deg) translateZ(208px);
+        }
+
+        /* Hiệu ứng quay */
+        @keyframes quayDen {
+            from {
+                transform: rotateY(0deg);
+            }
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+
+        /* Dừng quay khi rê chuột vào hình */
+        .lantern.dung {
+            animation-play-state: paused;
+        }
+
+        .hint {
+            margin-top: 55px;
+            padding: 12px 24px;
+            border: 1px solid #ffd166;
+            border-radius: 30px;
+            color: #ffd166;
+            background: rgba(255, 209, 102, 0.08);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 15px;
+            color: #9ca3af;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 27px;
+            }
+
+            .scene {
+                transform: scale(0.75);
+                margin: -35px 0;
+            }
+
+            .description {
+                margin-bottom: 15px;
+            }
+
+            .hint {
+                margin-top: 20px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🏮 ĐÈN KÉO QUÂN 🏮</h1>
+
+    <p class="description">
+        Mô hình đèn kéo quân 3D bằng HTML, CSS và JavaScript của Hiếu<br>
+        Di chuột vào một hình ảnh để làm gì ??
+        để dừng chứ gì!
+    </p>
+
+    <div class="scene">
+        <div class="lantern" id="lantern">
+
+            <div class="face">
+                <img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/856535358_2306410253233920_2199757082414015988_n.jpg?stp=dst-jpg_tt6&cstp=mx1024x1024&ctp=s1024x1024&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGucwyv3imkSth6vcuqmeOX0LlNM-a0G6LQuU0z5rQbopSm5CrMO3EdJ6RAfh-LmPj1SnfgEZI5EClXBubt-dPd&_nc_ohc=i83ax7zgX5IQ7kNvwEVs9-n&_nc_oc=Ado_T2WAJ1HaWfk1FpcinbAx1ptd9AajCe0aMCNLk5IPporbQeyHeNYpWmag6hxlOZ4&_nc_zt=23&_nc_ht=scontent.fsgn2-4.fna&_nc_gid=EEVafztLeKvnp8ajYFHORg&_nc_ss=7b2a8&oh=00_AQND8791tQny1wwQut--sgoqLhqyLhRwMMtvbgU1KSUqtA&oe=6ADCD9A2" alt="Hình ảnh số 1">
+            </div>
+
+            <div class="face">
+                <img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/855220451_2306410126567266_8974683026086295390_n.jpg?stp=dst-jpg_tt6&cstp=mx1184x2560&ctp=s1184x2560&_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeE7xqiQF25URWcr9u8PK7wqYPXM9KWqMBFg9cz0paowEUbN4qelKURePZdbH5FZ4YeVs1NirjsAzv6LQ19J3wa5&_nc_ohc=qEDYaIDlDywQ7kNvwHz5ciN&_nc_oc=AdocFKlW3KL7Gt6xi_Jeeae6L299ziZhroZTUsvTe_g1NSlLOGdaFLSHoomdNOD1Zew&_nc_zt=23&_nc_ht=scontent.fsgn2-4.fna&_nc_gid=tQtyaEg0SFr3yN1znfEdvg&_nc_ss=7b2a8&oh=00_AQO9AgYIAJLUsN-bfEKs2RGqUp23QUkKpD8R8d7f799VnA&oe=6ADCDEC5" alt="Hình ảnh số 2">
+            </div>
+
+            <div class="face">
+                <img src="https://scontent.fsgn2-11.fna.fbcdn.net/v/t39.30808-6/853878920_2306410113233934_843634457479515053_n.jpg?stp=dst-jpg_tt6&cstp=mx1086x1448&ctp=s1086x1448&_nc_cat=108&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGSiv079yq-ZTOt1fQH9p34cDZkqNjmQ0NwNmSo2OZDQwx8U6qlvx2a26GMVOQGi4B7R-nnC0ieUstmuOKy6NdE&_nc_ohc=C8rBG-sZwj0Q7kNvwE75cHJ&_nc_oc=AdqtndL9n_QVpK53dAwJRm0Bxw0Sv1lYRcSTPHA3lVhel17VbON2XPIS_Wc-TFRRrxE&_nc_zt=23&_nc_ht=scontent.fsgn2-11.fna&_nc_gid=lc2vN-Mj4l7Xs649mZdbwQ&_nc_ss=7b2a8&oh=00_AQMtNDs0bf5DDru0nJjOFC6aDmdBrrbdjDix2WGaRhZJxw&oe=6ADCD57B" alt="Hình ảnh số 3">
+            </div>
+
+            <div class="face">
+                <img src="https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/857390603_2306409426567336_2895514373826159677_n.jpg?stp=dst-jpg_tt6&cstp=mx1086x1448&ctp=p526x296&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGF30GlNB4ASmGJtSL_zpyW1VWMVt62nbXVVYxW3radtRSSy5PF2mBYwyKheVzLFh0kE7zpCiIR22_DbS83iZPk&_nc_ohc=mrvlhtJ1rGYQ7kNvwFVPMu3&_nc_oc=AdpE9Hrhl83VFXKKJ_f04cb6xOu1qnvwcEK3vgK1xdsK5KBIUighxbkaOWgWLGRBZ74&_nc_zt=23&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=OGbPXXyaxxrhY7j4JQiKaw&_nc_ss=7b2a8&oh=00_AQPdg6SvE8dNDC_B3ftF9xgxqIPAunvad38Qtvy1ywq7pA&oe=6ADCE60D" alt="Hình ảnh số 4">
+            </div>
+
+            <div class="face">
+                <img src="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-6/857159063_2306410293233916_7488417949189542700_n.jpg?stp=dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHZwRMrKUZke7RfFrKy7xQS7UzfrAuKpg3tTN-sC4qmDfOZrrCx-U9gt4goEN8q8ZhxDYk5MVIB-s0rHhejvr7b&_nc_ohc=RUWnAakhCYAQ7kNvwFGHtKQ&_nc_oc=Adppa33EoMla_BnqGIroD0kkNIh9u8Ixp6OoG2FHWAFhzdjLi_dnceAu6rNjyuWLo5s&_nc_zt=23&_nc_ht=scontent.fsgn2-5.fna&_nc_gid=M7zpycLA9m86hZfnNJh_lw&_nc_ss=7b2a8&oh=00_AQMwZ16092NenJftCNW7VXc62PaLat5HtrsFhKLACT8NWw&oe=6ADCF84B" alt="Hình ảnh số 5">
+            </div>
+
+            <div class="face">
+                <img src="https://images.genius.com/a3d9ca4ec3d376ed9f2fa0ca4ece9c17.1000x1000x1.jpg" alt="Hình ảnh số 6">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="hint" id="hint">
+        ✨ Rê chuột vào hình ảnh để dừng quay
+    </div>
+
+    <div class="footer">
+        Bài tập thiết kế website hiệu ứng JavaScript
+    </div>
+
+    <script>
+        // Lấy các thành phần trên trang
+        const lantern = document.getElementById("lantern");
+        const faces = document.querySelectorAll(".face");
+        const hint = document.getElementById("hint");
+
+        // Dừng đèn khi rê chuột vào một mặt
+        faces.forEach(function(face) {
+            face.addEventListener("mouseenter", function() {
+                lantern.classList.add("dung");
+                hint.innerHTML = "⏸ Đèn đã dừng! Rê chuột ra để quay tiếp.";
+            });
+
+            // Tiếp tục quay khi rê chuột ra
+            face.addEventListener("mouseleave", function() {
+                lantern.classList.remove("dung");
+                hint.innerHTML = "✨ Đèn đang quay! Rê chuột vào hình để dừng.";
+            });
+        });
+    </script>
+
+</body>
+</html>
